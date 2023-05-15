@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add new member</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #75abad;
+            font-family: "Space Mono", helvetica, arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+        }
+        .container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95vw;
+            height: 95vh;
+            display: flex;
+            flex-direction: row;
+            border: solid 3px #3b5657;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+        .content {
+            flex-grow: 1;
+            position: relative;
+        }
+        .container a:last-of-type {
+            color: #fafafa;
+            font-size: 30px;
+            font-weight: 400;
+            font-style: normal;
+            text-transform: uppercase;
+            text-decoration: none;
+            background-color: #1b1e24;
+            padding: 10px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            bottom: 2rem;
+            left:50%;
+            transform: translate(-50%, -50%);
+        }
+        .container a:last-of-type:hover {
+            background-color: #f97c7c;
+        }
+        .content h1:first-of-type {
+            position: absolute;
+            left:50%;
+            font-family: "Nunito", helvetica, arial, sans-serif;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #EBEBEB;
+            text-transform: uppercase;
+            font-size: 4rem;
+            margin-block: 1.5rem;
+        }
+        .image-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+            z-index: -1;
+        }
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* Form styling */
+        form {
+            position: absolute;
+            top: 45%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 40%;
+            padding: 10px 20px;
+            background-color: #1b1e24;
+            color: #fafafa;
+            font-size: 20px;
+            font-weight: 400;
+            font-style: normal;
+            text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin: 30px auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #fafafa;
+            color: #333;
+            font-size: 16px;
+            font-weight: 400;
+            font-style: normal;
+        }
+        input[type="submit"] {
+            background-color: #4E5066;
+            color: #fafafa;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            margin: 10px auto 20px auto;
+        }
+        input[type="submit"]:hover {
+            background-color: #75abad;
+            border-color: #22262e;
+            color: #fff;
+            text-shadow: none;
+            margin: 10px auto 20px auto;
+        }
+
+        @media(width <740px) {
+            .container {
+                max-height: 90vh;
+            }
+            .container h1:first-of-type {
+                font-size: 2.5rem;
+            }
+            form {
+                width: 85vw;
+                top: 50%;
+            }
+            .container a:last-of-type {
+                bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+            <h1>Add new member</h1>
+        <form id="add-member-form" th:object="${member}" th:action="@{/add_member}" method="post">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" th:field="*{firstName}" required pattern="[A-Za-z]+"  oninvalid="setCustomValidity('Only letter characters are allowed in names.')">
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" th:field="*{lastName}"  required pattern="[A-Za-z]+"  oninvalid="setCustomValidity('Only letter characters are allowed in names.')">
+            <label for="membership-type">Membership Type:</label>
+            <select id="membership-type" name="membership-type" th:field="*{membership_type}" required>
+                <option value="General Member">General Member</option>
+                <option value="Child Member">Child Member</option>
+                <option value="Student Member">Student Member</option>
+            </select>
+            <input type="hidden" id="current-date" th:field="*{registration_date}">
+
+            <input type="submit" value="Add Member">
+            </form>
+        <a href="/gym_home">Back</a>
+        <div class="image-wrapper">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                 alt="gym image">
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("current-date").value = "";
+
+    // Post form data to endpoint on submit
+    document.getElementById("add-member-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        let form = document.getElementById("add-member-form");
+        let data = new FormData(form);
+        fetch("/add_member", {
+            method: "POST",
+            body: data
+        }).then(() => {
+            // dummy redirect to make JS not complain. actual redirect is handled on server by spring.
+            // also a sort of error catching technique - this will redirect even if server side fails, so user never
+            // sees status 500, just lands at a list that hasn't been updated
+            window.location.href = "/memberlist";
+        }).catch(error => {
+            //catch client side error if any happen?
+            console.error("Error:", error);
+        });
+    });
+</script>
+</body>
+</html>

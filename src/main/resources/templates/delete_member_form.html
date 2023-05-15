@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Delete Member</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #75abad;
+      font-family: 'Space Mono', helvetica, arial, sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      text-rendering: optimizeLegibility;
+    }
+
+    .container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 95vw;
+      height: 95vh;
+      display: flex;
+      flex-direction: row;
+      border: solid 3px #3b5657;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+    .container a:last-of-type {
+      color: #fafafa;
+      font-size: 30px;
+      font-weight: 400;
+      font-style: normal;
+      text-transform: uppercase;
+      text-decoration: none;
+      background-color: #1b1e24;
+      padding: 10px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    button {
+      border: none;
+      color: #fafafa;
+      text-decoration: none;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      background-color: #4E5066;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+     button:hover {
+      background-color: #75abad;
+      color: #fff;
+      border: none #22262e;
+      text-shadow: none;
+
+    }
+
+    .container a:hover {
+      background-color: #f97c7c;
+    }
+
+    .container h1:first-of-type {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Nunito', helvetica, arial, sans-serif;
+      color: #EBEBEB;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 3rem;
+      margin-block: 1.5rem;
+    }
+
+    #modal{
+      display: flex;
+      position:absolute;
+      height: fit-content;
+      width: clamp(40vw, 50%, 90vw);
+      background-color: #f97c7c;
+      padding: 3rem 2rem;
+      color: #EBEBEB;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 15px;
+      font-size: 2rem;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modal button {
+     min-width: 200px;
+    }
+
+    .image-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    form {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 40%;
+      padding: 10px 20px;
+      background-color: #1b1e24;
+      color: #fafafa;
+      font-size: 20px;
+      font-weight: 400;
+      font-style: normal;
+      text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      margin: 50px auto;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: #fafafa;
+      color: #333;
+      font-size: 16px;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @media(width <740px) {
+      .container {
+        max-height: 90vh;
+      }
+      .container h1:first-of-type {
+      font-size: 2.5rem;
+      }
+      form {
+        width: 85vw;
+        top: 45%;
+      }
+      .container a:last-of-type {
+        top: unset !important;
+        bottom: 1rem;
+      }
+
+      #modal {
+        width: 90vw;
+        top: 50%;
+        height: fit-content;
+      }
+    }
+  </style>
+
+ </head>
+<body>
+<div class="container">
+  <h1>Remove existing member</h1>
+  <form id="remove-member-form">
+    <label for="select-member">Select member to remove:</label>
+    <select id="select-member" name="select-member" required>
+      <option value="" selected disabled>Select a member</option>
+      <!-- populate options using Thymeleaf -->
+      <option th:each="member : ${members}" th:value="${member.member_id}" th:text="${member.firstName + ' ' + member.lastName}"></option>
+    </select>
+    <button type="button" onclick="openModal()">Remove Member</button>
+  </form>
+  <a href="/gym_home">Back</a>
+  <div class="image-wrapper">
+    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+         alt="gym image">
+  </div>
+  <!-- Modal -->
+  <div id="modal" style="display: none;">
+    <!--    visible for styling -->
+<!--        <div id="modal">-->
+    <p>Are you sure you want to delete?</p>
+    <button onclick="deleteMember()">YES</button>
+    <button onclick="closeModal()">NO</button>
+  </div>
+</div>
+
+<script>
+  // Get references to DOM elements
+  const selectMember = document.getElementById("select-member");
+  const modal = document.getElementById("modal");
+
+  // Open modal when Remove Member button is clicked
+  function openModal() {
+    if (selectMember.value) {
+      modal.style.display = "flex";
+    } else {
+      alert("Please select a member to remove.");
+    }
+  }
+
+  // Close modal when NO button is clicked
+  function closeModal() {
+    modal.style.display = "none";
+  }
+
+  // Delete member when YES button is clicked
+  function deleteMember() {
+    const memberId = selectMember.value;
+    fetch(`/del_member?id=` + memberId, { // pass ID to be deleted as URL parameter using DELETE method
+      method: "DELETE"
+    }).then(() => {
+      // dummy redirect to make JS not complain. actual redirect is handled on server by spring.
+      // also a sort of error catching technique - this will redirect even if server side fails, so user never
+      // sees status 500, just lands at a list that hasn't been updated
+      window.location.href = "/memberlist";
+    }).catch(error => {
+      //catch client side error if any happen?
+      console.error("Error:", error);
+    });
+  }
+</script>
+</body>
+</html>

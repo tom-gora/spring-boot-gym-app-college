@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Random ticket retrieved</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #75abad;
+            font-family: 'Space Mono', helvetica, arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            text-rendering: optimizeLegibility;
+        }
+
+        .container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95vw;
+            height: 95vh;
+            display: flex;
+            flex-direction: row;
+            border: solid 3px #3b5657;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .content a:last-of-type {
+            color: #fafafa;
+            font-size: 30px;
+            font-weight: 400;
+            font-style: normal;
+            text-transform: uppercase;
+            text-decoration: none;
+            background-color: #1b1e24;
+            padding: 10px;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            max-width: fit-content;
+        }
+
+        .content a:last-of-type:hover {
+            background-color: #f97c7c;
+        }
+
+        .content h1:first-of-type  {
+            text-align: center;
+            color: #EBEBEB;
+            text-transform: uppercase;
+            font-size: clamp(2rem, 3vw, 4rem);
+            font-family: "Nunito", helvetica, arial, sans-serif;
+            margin-top: 2rem;
+        }
+
+        .image-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ticket-wrap {
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ticket {
+            display: inline-block;
+            margin: 0 auto;
+            border: 4px solid #3b5657;
+            font-feature-settings: "kern" 1;
+            background: #d8dddd;
+            transform: rotate(6deg) scale(0.95);
+            min-width: 30vw;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .ticket-name span {
+            display: block;
+        }
+
+        .ticket-body {
+            padding: 0.7rem 0.5em 0.5em;
+        }
+
+        .ticket-name {
+            margin-block: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 2em;
+            line-height: 1.1;
+        }
+
+        .ticket-title {
+            margin-top: .5em;
+            font-variation-settings: "wght" 350;
+            font-size: 1.125em;
+            color: #506072;
+        }
+
+        .cost-item {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            border-top: 2px solid #9facbc;
+            border-bottom: 2px solid #9facbc;
+            text-align: left;
+            border-top: none;
+        }
+
+        .member-details {
+            display: flex;
+            align-items: center;
+            margin-block: 0.5rem;
+            padding: 0.5rem 0;
+            border-top: 2px solid #9facbc;
+            border-bottom: 2px solid #9facbc;
+            text-align: left;
+            font-weight: 600;
+        }
+        .member-details p {
+            border-right: 2px solid #9facbc;
+            padding-right: 0.5rem;
+            flex: fit-content;
+        }
+
+        .cost-item p {
+            min-width: 80%;
+            font-size: 0.7rem;
+        }
+
+        .cost-item p, .member-details p {
+            margin: 0.5rem;
+            line-height: 1;
+        }
+
+        .cost-item p:last-child, .member-details p:last-child {
+            margin: 0;
+            padding: 0;
+            border-right: 0;
+        }
+        h4:first-of-type {
+            margin-block: 0.2rem;
+        }
+
+        .member-details-label {
+            display: block;
+            margin-bottom: .5em;
+            font-variation-settings: "wght" 300;
+            font-size: .875em;
+            color: #506072;
+        }
+
+        .details-item {
+            font-size: 1.25em;
+            color: #424f5e;
+        }
+
+        .total-cost {
+            margin: 0.5rem;
+            font-size: 2.5em;
+            line-height: 1;
+            color: #657990;
+        }
+        .total-label {
+            margin-block: 0.5rem;
+        }
+        @media(width <740px) {
+            .container {
+                max-height: 90vh;
+            }
+            .container h1:first-of-type {
+                font-size: 2rem;
+            }
+            .container a:last-of-type {
+                bottom: 1rem;
+            }
+            .ticket-wrap {
+            transform: scale(0.9);
+            }
+            }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+            <h1>Random ticket retrieved</h1>
+<!-- adapted from src https://codepen.io/tom-gora/pen/wvYorPL -->
+
+        <div class="ticket-wrap">
+            <div class="ticket" aria-hidden="true">
+                    <div class="ticket-body">
+                    <p class="ticket-title">ANNUAL PAYMENT STATEMENT FOR</p>
+                    <p class="ticket-name" th:text="${member.firstName} + ' ' + ${member.lastName}"></p>
+                    <div class="member-details">
+                        <p>
+                            <span class="member-details-label">Membership type:</span>
+                            <span class="details-item" th:text="${member.membership_type}"></span>
+                        </p>
+                        <p>
+                            <span class="member-details-label">ID:</span>
+                            <span class="details-item" th:text="${member.member_id}"></span>
+                        </p>
+                        <p>
+                            <span class="member-details-label">Registered on:</span>
+                            <span class="details-item" th:text="${member.registration_date}"></span>
+                        </p>
+                    </div>
+                    <h4>Cost breakdown:</h4>
+                    <div class="cost-item">
+                        <p>
+                            <span class="details-item">Annual fee</span>
+                        </p>
+
+                        <p>
+                            <span class="details-item" th:text="${'£' + annualFee}"></span>
+                        </p>
+                    </div>
+                    <div class="cost-item">
+                        <p>
+                            <span class="details-item">Joining or contract extension fee:</span>
+                        </p>
+
+                        <p>
+                            <span class="details-item" th:text="${'£' + processingFee}"></span>
+                        </p>
+                    </div>
+                    <div class="cost-item">
+                        <p>
+                            <span class="details-item">Health journal fee:</span>
+                        </p>
+
+                        <p>
+                            <span class="details-item" th:text="${'£' + journalFee}"></span>
+                        </p>
+                    </div>
+                    <p class="total-label">Total</p>
+                    <p class="total-cost" th:text="${'£' + total}">£88</p>
+                </div>
+            </div>
+        </div>
+        <a href="/gym_home">Back</a>
+
+    </div>
+    <div class="image-wrapper">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+             alt="gym image">
+    </div>
+</div>
+</body>
+</html>

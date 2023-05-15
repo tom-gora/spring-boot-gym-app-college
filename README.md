@@ -14,5 +14,5 @@ Desktop demo:
 
 Mobile demo:
 
-![desktop](./assets/desktop_demo.apng)
+![desktop](./assets/mobile_demo.apng)
 

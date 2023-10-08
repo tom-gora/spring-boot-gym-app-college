@@ -1,0 +1,23 @@
+# Spring Boot build output
+target/
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE files
+.idea/
+.vscode/
+
+# Logs
+logs/
+
+# Configuration files
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# Database configuration
+src/main/resources/application-*.properties
+
+# Sensitive or local configuration files (add more if needed)
+application.properties
+application.yml

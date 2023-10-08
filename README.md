@@ -8,11 +8,17 @@ The app uses Spring Boot to read the database and create endpoint URLs on the lo
 
 Fetatures: 
 
-- Fully integrated with a remote database
-- Basic web interface for Java backend
+- Integrated with a MySQL database
+- Basic frontend interface for Spring backend
 - Responsive on mobile screens
 
 * Added two simple JUnit tests written as testing assignment. Not much as there isn't really that much custom functionalities built in Java from scratch.
+
+
+Deployed demo:
+
+[Click to see the demo on my portfolio page  🚀 🚀 🚀](http://tomgora.online:8080/gym_home)
+
 
 Desktop demo:
 
@@ -21,4 +27,3 @@ Desktop demo:
 Mobile demo:
 
 ![desktop](./assets/mobile_demo.apng)
-

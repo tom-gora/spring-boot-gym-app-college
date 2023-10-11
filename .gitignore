@@ -21,3 +21,6 @@ src/main/resources/application-*.properties
 # Sensitive or local configuration files (add more if needed)
 application.properties
 application.yml
+
+#node modules?
+node_modules/

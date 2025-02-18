@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if ! mvn clean install; then
+	echo "Maven build failed!"
+	exit 1
+fi
+
+JAR_FILE=$(find target -name "*.jar" -print -quit)
+
+if [ -z "$JAR_FILE" ]; then
+	echo "No JAR file found!"
+	exit 1
+fi
+
+ln -sf "$JAR_FILE" ./the-app.jar
+
+docker compose up --build -d

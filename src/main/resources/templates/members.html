@@ -1,210 +1,207 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Gym club members</title>
     <!-- style src https://codepen.io/alassetter/pen/nBEVJx -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            background-color: #75abad;
-            font-family: "Space Mono", helvetica, arial, sans-serif;
-            font-size: 16px;
-            font-weight: 400;
-            text-rendering: optimizeLegibility;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        background-color: #75abad;
+        font-family: "Space Mono", helvetica, arial, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        text-rendering: optimizeLegibility;
+      }
+      .table-title {
+        margin-inline: auto;
+        margin-block: 2rem;
+        padding: 5px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .table-title h3 {
+        color: #fafafa;
+        font-size: 2.5rem;
+        font-weight: 400;
+        font-style: normal;
+        text-transform: uppercase;
+        background-color: #1b1e24;
+        padding: 10px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        margin-right: auto;
+      }
+      .table-title a:first-of-type {
+        color: #fafafa;
+        font-size: 2.5rem;
+        font-weight: 400;
+        font-style: normal;
+        text-transform: uppercase;
+        text-decoration: none;
+        background-color: #1b1e24;
+        padding: 10px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        margin-left: 20px;
+      }
+      .table-title a:first-of-type:hover {
+        background-color: #f97c7c;
+      }
+
+      /*** Table Styles **/
+      .table-fill {
+        background: white;
+        border-radius: 3px;
+        border-collapse: collapse;
+        height: 320px;
+        margin: auto;
+        max-width: 1000px;
+        padding: 5px;
+        width: 100%;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        animation: float 5s infinite;
+      }
+
+      th {
+        color: #fff;
+        background: #1b1e24;
+        border-bottom: 4px solid #9ea7af;
+        border-right: 1px solid #343a45;
+        font-size: 23px;
+        font-weight: 100;
+        padding: 24px;
+        text-align: left;
+        vertical-align: middle;
+      }
+
+      th:first-child {
+        border-top-left-radius: 3px;
+      }
+
+      th:last-child {
+        border-top-right-radius: 3px;
+        border-right: none;
+      }
+
+      tr {
+        border-top: 1px solid #c1c3d1;
+        border-bottom: 1px solid #c1c3d1;
+        color: #666b85;
+        font-size: 16px;
+        font-weight: normal;
+      }
+
+      tr:hover td {
+        background: #4e5066;
+        color: #ffffff;
+        border-top: 1px solid #22262e;
+      }
+
+      tr:first-child {
+        border-top: none;
+      }
+
+      tr:last-child {
+        border-bottom: none;
+      }
+
+      tr:nth-child(odd) td {
+        background: #ebebeb;
+      }
+
+      tr:nth-child(odd):hover td {
+        background: #4e5066;
+      }
+
+      tr:last-child td:first-child {
+        border-bottom-left-radius: 3px;
+      }
+
+      tr:last-child td:last-child {
+        border-bottom-right-radius: 3px;
+      }
+
+      td {
+        background: #ffffff;
+        padding: 20px;
+        text-align: left;
+        vertical-align: middle;
+        font-weight: 300;
+        font-size: 18px;
+        border-right: 1px solid #c1c3d1;
+      }
+
+      td:last-child {
+        border-right: 0;
+      }
+
+      th.text-left {
+        text-align: left;
+      }
+
+      td.text-left {
+        text-align: left;
+      }
+      @media (width <740px) {
         .table-title {
-            margin-inline: auto;
-            margin-block: 2rem;
-            padding: 5px;
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+          flex-direction: column !important;
         }
-
-        .table-title h3 {
-            color: #fafafa;
-            font-size: 2.5rem;
-            font-weight: 400;
-            font-style: normal;
-            text-transform: uppercase;
-            background-color: #1b1e24;
-            padding: 10px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            flex: 1;
-            margin-right: auto;
-        }
-        .table-title a:first-of-type {
-            color: #fafafa;
-            font-size: 2.5rem;
-            font-weight: 400;
-            font-style: normal;
-            text-transform: uppercase;
-            text-decoration: none;
-            background-color: #1b1e24;
-            padding: 10px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            margin-left: 20px;
-        }
-        .table-title a:first-of-type:hover{
-            background-color: #f97c7c;
-        }
-
-        /*** Table Styles **/
-        .table-fill {
-            background: white;
-            border-radius: 3px;
-            border-collapse: collapse;
-            height: 320px;
-            margin: auto;
-            max-width: 1000px;
-            padding: 5px;
-            width: 100%;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            animation: float 5s infinite;
-        }
-
-        th {
-            color: #fff;;
-            background: #1b1e24;
-            border-bottom: 4px solid #9ea7af;
-            border-right: 1px solid #343a45;
-            font-size: 23px;
-            font-weight: 100;
-            padding: 24px;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        th:first-child {
-            border-top-left-radius: 3px;
-        }
-
-        th:last-child {
-            border-top-right-radius: 3px;
-            border-right: none;
-        }
-
-        tr {
-            border-top: 1px solid #C1C3D1;
-            border-bottom: 1px solid #C1C3D1;
-            color: #666B85;
-            font-size: 16px;
-            font-weight: normal;
-        }
-
-        tr:hover td {
-            background: #4E5066;
-            color: #FFFFFF;
-            border-top: 1px solid #22262e;
-        }
-
-        tr:first-child {
-            border-top: none;
-        }
-
-        tr:last-child {
-            border-bottom: none;
-        }
-
-        tr:nth-child(odd) td {
-            background: #EBEBEB;
-        }
-
-        tr:nth-child(odd):hover td {
-            background: #4E5066;
-        }
-
-        tr:last-child td:first-child {
-            border-bottom-left-radius: 3px;
-        }
-
-        tr:last-child td:last-child {
-            border-bottom-right-radius: 3px;
-        }
-
-        td {
-            background: #FFFFFF;
-            padding: 20px;
-            text-align: left;
-            vertical-align: middle;
-            font-weight: 300;
-            font-size: 18px;
-            border-right: 1px solid #C1C3D1;
-        }
-
-        td:last-child {
-            border-right: 0;
-        }
-
-        th.text-left {
-
-
-            text-align: left;
-        }
-
-        td.text-left {
-            text-align: left;
-        }
-        @media(width <740px) {
-            .table-title {
-                flex-direction: column !important;
-            }
-        }
-
+      }
     </style>
-</head>
-<body>
-<div>
-    <div class="table-title">
+  </head>
+  <body>
+    <div>
+      <div class="table-title">
         <h3>GYM CLUB MEMBERS</h3>
         <a href="   /gym_home">Back</a>
-    </div>
+      </div>
 
-
-    <table class="table-fill">
+      <table class="table-fill">
         <thead>
-        <tr>
+          <tr>
             <th class="text-left">Member ID</th>
             <th class="text-left">First Name</th>
             <th class="text-left">Last Name</th>
             <th class="text-left">Membership Type</th>
             <th class="text-left">Registration Date</th>
-        </tr>
+          </tr>
         </thead>
         <tbody class="table-hover">
-        <tr>
-        <tr th:each="member : ${members}">
+          <tr th:each="member : ${members}">
             <td class="text-left" th:text="${member.member_id}"></td>
             <td class="text-left" th:text="${member.firstName}"></td>
             <td class="text-left" th:text="${member.lastName}"></td>
             <td class="text-left" th:text="${member.membership_type}"></td>
             <td class="text-left" th:text="${member.registration_date}"></td>
-        </tr>
+          </tr>
         </tbody>
-    </table>
-</div>
-</body>
+      </table>
+    </div>
+  </body>
 </html>

@@ -24,6 +24,7 @@ public class MemberListController {
     public String showMembers(Model model) {
         // retrieve List of members using relevant function
         List<Member> members = databaseOperations.getMemberList();
+        System.out.println("Fetched members: " + members); // Debugging line
         // add list to the passed model as attribute named "members"
         model.addAttribute("members", members);
         return "members"; // redirect

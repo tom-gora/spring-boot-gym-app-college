@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tomgora</groupId>
-	<artifactId>gym_app_remaster</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>gym_app_remaster</name>
-	<description>gym_app_remaster</description>
+	<artifactId>gym_app_stupid_simple_demo</artifactId>
+	<version>minus-0.01-pre-alpha</version>
+	<name>gym_app_stupid_simple_demo</name>
+	<description>gym_app_stupid_simple_demo</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

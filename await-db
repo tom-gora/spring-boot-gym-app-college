@@ -1,0 +1,15 @@
+#!/bin/ash
+
+CYAN="\\033[36m"
+RESET="\\033[0m"
+
+echo -e "${CYAN}[$(date +'%d-%b-%Y %H:%M:%S')] Waiting for the database to come online...${RESET}"
+while ! nc -zv -w30 gym-db 3306; do
+	echo -e "${CYAN}[$(date +'%d-%M-%Y %H:%M:%S')] Waiting for the database to come online...${RESET}"
+	sleep 5
+done
+
+echo -e "${CYAN}[$(date +'%d-%b-%Y %H:%M:%S')] Database service is online.${RESET}"
+echo -e "${CYAN}[$(date +'%d-%b-%Y %H:%M:%S')] Starting up the application in due order...${RESET}"
+
+exec "$@"

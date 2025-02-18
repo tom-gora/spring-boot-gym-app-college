@@ -1,0 +1,39 @@
+services:
+  gym-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: gym-app
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+    networks:
+      - "gym-intranet"
+    depends_on:
+      gym-db:
+        condition: service_healthy
+
+  gym-db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    container_name: ${DB_HOST}
+    environment:
+      MARIADB_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
+      MARIADB_DATABASE: "${DB_NAME}"
+      MARIADB_USER: "${DB_USER}"
+      MARIADB_PASSWORD: "${DB_PASS}"
+    networks:
+      - "gym-intranet"
+    healthcheck:
+      interval: 10s
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      timeout: 5s
+      retries: 5
+
+networks:
+  gym-intranet:

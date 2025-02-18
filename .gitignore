@@ -1,26 +1,23 @@
-# Spring Boot build output
 target/
 .mvn/
 mvnw
 mvnw.cmd
 
-# IDE files
 .idea/
 .vscode/
+.settings/
 
-# Logs
 logs/
 
 # Configuration files
 src/main/resources/application.properties
 src/main/resources/application.yml
 
-# Database configuration
-src/main/resources/application-*.properties
-
-# Sensitive or local configuration files (add more if needed)
-application.properties
+# Database configuration and secrets
+.env
+**/application-*.properties
 application.yml
 
-#node modules?
-node_modules/
+# my build stage symlink
+the-app.jar
+
